@@ -8,7 +8,7 @@ import (
 func AddRoute(g *gin.Engine) {
 
 	userController := &api.UserController{}
-	v1 := g.Group("/api/user")
+	v1 := g.Group("/api")
 	{
 		v1.GET("/user", userController.List)
 		v1.POST("/user", userController.Add)

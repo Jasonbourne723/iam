@@ -5,5 +5,9 @@ type Configuration struct {
 }
 
 type Database struct {
-	Host string `yaml:"host"`
+	Host   string `yaml:"Host"`
+	Port   int    `yaml:"Port"`
+	User   string `yaml:"User"`
+	Passwd string `yaml:"Passwd"`
+	Db     string `yaml:"Db"`
 }

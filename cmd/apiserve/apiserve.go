@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/jasonbourne723/iam/internal/route"
+	"github.com/jasonbourne723/iam/internal/bootstrap"
+	"github.com/jasonbourne723/iam/internal/global"
 )
 
 func main() {
 
-	g := gin.Default()
+	bootstrap.InitializeConfig()
 
-	route.AddRoute(g)
+	global.App.DB = bootstrap.InitializeDB()
 
-	g.Run(":8080")
+	bootstrap.RunServe()
 
 }
