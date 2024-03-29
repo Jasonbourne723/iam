@@ -1,4 +1,147 @@
+definitions:
+  dto.AddUserDto:
+    properties:
+      avatar:
+        type: string
+      name:
+        type: string
+      remark:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/dto.RoleDto'
+        type: array
+    type: object
+  dto.AppDto:
+    properties:
+      appId:
+        type: integer
+      avatar:
+        type: string
+      name:
+        type: string
+      secret:
+        type: string
+    type: object
+  dto.Result:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  dto.RoleDto:
+    properties:
+      apps:
+        items:
+          $ref: '#/definitions/dto.AppDto'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  dto.UpdateUserDto:
+    properties:
+      avatar:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/dto.RoleDto'
+        type: array
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户信息
+        in: query
+        name: pageIndex
+        required: true
+        type: integer
+      - description: 用户信息
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Result'
+      summary: 用户列表
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户信息
+        in: body
+        name: default
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AddUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Result'
+      summary: 新增用户
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户信息
+        in: body
+        name: default
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Result'
+      summary: 更新用户
+      tags:
+      - User
+  /users/{userId}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户Id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Result'
+      summary: 删除用户
+      tags:
+      - User
 swagger: "2.0"
