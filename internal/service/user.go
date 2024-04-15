@@ -1,6 +1,8 @@
 package service
 
 import (
+	"math"
+
 	"github.com/jasonbourne723/iam/internal/dto"
 	"github.com/jasonbourne723/iam/internal/global"
 	"github.com/jasonbourne723/iam/internal/model"
@@ -52,4 +54,39 @@ func (u *UserService) Get(userId int64) (*dto.UserDto, error) {
 		Avatar: user.Avatar,
 		Remark: user.Remark,
 	}, nil
+}
+
+func (u *UserService) List(pageIndex int, pageSize int) (*dto.PageResult[dto.UserDto], error) {
+
+	users := make([]model.User, 0, pageSize)
+	if err := global.App.DB.Limit(pageSize).Offset((pageIndex - 1) * pageSize).Find(&users).Error; err != nil {
+		return nil, err
+	}
+	var totalRows int64
+	if err := global.App.DB.Model(&model.User{}).Count(&totalRows).Error; err != nil {
+		return nil, err
+	}
+
+	result := dto.PageResult[dto.UserDto]{
+		PageIndex: int64(pageIndex),
+		PageSize:  int64(pageSize),
+		TotalRows: totalRows,
+		TotalPage: int64(math.Ceil(float64(totalRows) / float64(pageSize))),
+		Data:      mapToUserDto(users),
+	}
+
+	return &result, nil
+}
+
+func mapToUserDto(users []model.User) []dto.UserDto {
+	userDtos := make([]dto.UserDto, len(users))
+	for i, v := range users {
+		userDtos[i] = dto.UserDto{
+			Id:     v.UserId,
+			Avatar: v.Avatar,
+			Name:   v.Name,
+			Remark: v.Remark,
+		}
+	}
+	return userDtos
 }

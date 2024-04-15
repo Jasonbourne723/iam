@@ -1,5 +1,5 @@
 definitions:
-  dto.AddUserDto:
+  github_com_jasonbourne723_iam_internal_dto.AddUserDto:
     properties:
       avatar:
         type: string
@@ -9,10 +9,10 @@ definitions:
         type: string
       roles:
         items:
-          $ref: '#/definitions/dto.RoleDto'
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto'
         type: array
     type: object
-  dto.AppDto:
+  github_com_jasonbourne723_iam_internal_dto.AppDto:
     properties:
       appId:
         type: integer
@@ -23,25 +23,40 @@ definitions:
       secret:
         type: string
     type: object
-  dto.Result:
+  github_com_jasonbourne723_iam_internal_dto.PageResult-github_com_jasonbourne723_iam_internal_dto_UserDto:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.UserDto'
+        type: array
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+      totalPage:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  github_com_jasonbourne723_iam_internal_dto.Result:
     properties:
       code:
         type: integer
       message:
         type: string
     type: object
-  dto.RoleDto:
+  github_com_jasonbourne723_iam_internal_dto.RoleDto:
     properties:
       apps:
         items:
-          $ref: '#/definitions/dto.AppDto'
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.AppDto'
         type: array
       id:
         type: integer
       name:
         type: string
     type: object
-  dto.UpdateUserDto:
+  github_com_jasonbourne723_iam_internal_dto.UpdateUserDto:
     properties:
       avatar:
         type: string
@@ -53,7 +68,22 @@ definitions:
         type: string
       roles:
         items:
-          $ref: '#/definitions/dto.RoleDto'
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto'
+        type: array
+    type: object
+  github_com_jasonbourne723_iam_internal_dto.UserDto:
+    properties:
+      avatar:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+      roles:
+        items:
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto'
         type: array
     type: object
 info:
@@ -80,7 +110,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.Result'
+            $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.PageResult-github_com_jasonbourne723_iam_internal_dto_UserDto'
       summary: 用户列表
       tags:
       - User
@@ -93,14 +123,14 @@ paths:
         name: default
         required: true
         schema:
-          $ref: '#/definitions/dto.AddUserDto'
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.AddUserDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.Result'
+            $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.Result'
       summary: 新增用户
       tags:
       - User
@@ -113,14 +143,14 @@ paths:
         name: default
         required: true
         schema:
-          $ref: '#/definitions/dto.UpdateUserDto'
+          $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.UpdateUserDto'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.Result'
+            $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.Result'
       summary: 更新用户
       tags:
       - User
@@ -140,7 +170,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dto.Result'
+            $ref: '#/definitions/github_com_jasonbourne723_iam_internal_dto.Result'
       summary: 删除用户
       tags:
       - User

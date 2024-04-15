@@ -47,7 +47,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.Result"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.PageResult-github_com_jasonbourne723_iam_internal_dto_UserDto"
                         }
                     }
                 }
@@ -70,7 +70,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateUserDto"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.UpdateUserDto"
                         }
                     }
                 ],
@@ -78,7 +78,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.Result"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.Result"
                         }
                     }
                 }
@@ -101,7 +101,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.AddUserDto"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.AddUserDto"
                         }
                     }
                 ],
@@ -109,7 +109,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.Result"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.Result"
                         }
                     }
                 }
@@ -140,7 +140,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dto.Result"
+                            "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.Result"
                         }
                     }
                 }
@@ -148,7 +148,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dto.AddUserDto": {
+        "github_com_jasonbourne723_iam_internal_dto.AddUserDto": {
             "type": "object",
             "properties": {
                 "avatar": {
@@ -163,12 +163,12 @@ const docTemplate = `{
                 "roles": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.RoleDto"
+                        "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto"
                     }
                 }
             }
         },
-        "dto.AppDto": {
+        "github_com_jasonbourne723_iam_internal_dto.AppDto": {
             "type": "object",
             "properties": {
                 "appId": {
@@ -185,7 +185,30 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.Result": {
+        "github_com_jasonbourne723_iam_internal_dto.PageResult-github_com_jasonbourne723_iam_internal_dto_UserDto": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.UserDto"
+                    }
+                },
+                "pageIndex": {
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "type": "integer"
+                },
+                "totalPage": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_jasonbourne723_iam_internal_dto.Result": {
             "type": "object",
             "properties": {
                 "code": {
@@ -196,13 +219,13 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.RoleDto": {
+        "github_com_jasonbourne723_iam_internal_dto.RoleDto": {
             "type": "object",
             "properties": {
                 "apps": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.AppDto"
+                        "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.AppDto"
                     }
                 },
                 "id": {
@@ -213,7 +236,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateUserDto": {
+        "github_com_jasonbourne723_iam_internal_dto.UpdateUserDto": {
             "type": "object",
             "properties": {
                 "avatar": {
@@ -231,7 +254,30 @@ const docTemplate = `{
                 "roles": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.RoleDto"
+                        "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto"
+                    }
+                }
+            }
+        },
+        "github_com_jasonbourne723_iam_internal_dto.UserDto": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_jasonbourne723_iam_internal_dto.RoleDto"
                     }
                 }
             }
@@ -249,8 +295,6 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
-	// LeftDelim:        "{{",
-	// RightDelim:       "}}",
 }
 
 func init() {

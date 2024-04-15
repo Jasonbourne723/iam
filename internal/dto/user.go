@@ -5,14 +5,12 @@ type UserDto struct {
 	Name   string
 	Avatar string
 	Remark string
-	Roles  []RoleDto
 }
 
 type AddUserDto struct {
 	Name   string
 	Avatar string
 	Remark string
-	Roles  []RoleDto
 }
 
 type UpdateUserDto struct {
@@ -20,7 +18,4 @@ type UpdateUserDto struct {
 	Name   string
 	Avatar string
 	Remark string
-	Roles  []RoleDto
 }
-
-

@@ -20,12 +20,25 @@ type UserController struct {
 // @Param		pageSize	query	int64	true	"用户信息"
 // @Accept		json
 // @Produce	json
-// @Success	200	{object}	dto.Result
+// @Success	200	{object}	dto.PageResult[dto.UserDto]
 // @Router		/users [Get]
 func (u *UserController) List(ctx *gin.Context) {
-	pageIndex := ctx.Query("pageIndex")
-
-	fmt.Printf("pageIndex: %v\n", pageIndex)
+	pageIndex, err := strconv.ParseInt(ctx.Query("pageIndex"), 10, 64)
+	if err != nil {
+		return
+	}
+	pageSize, err := strconv.ParseInt(ctx.Query("pageSize"), 10, 64)
+	if err != nil {
+		return
+	}
+	result, err := service.UserSrv.List(int(pageIndex), int(pageSize))
+	if err != nil {
+		ctx.JSON(500, struct{ message string }{
+			message: err.Error(),
+		})
+	} else {
+		ctx.JSON(200, result)
+	}
 }
 
 // @Summary	新增用户
@@ -38,11 +51,11 @@ func (u *UserController) List(ctx *gin.Context) {
 // @Success	200	{object}	dto.Result
 // @Router		/users [post]
 func (u *UserController) Add(ctx *gin.Context) {
-	var addUser *dto.AddUserDto
-	if err := ctx.ShouldBindJSON(addUser); err != nil {
+	var addUser dto.AddUserDto
+	if err := ctx.ShouldBindJSON(&addUser); err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
-	if err := service.UserSrv.Add(addUser); err != nil {
+	if err := service.UserSrv.Add(&addUser); err != nil {
 		ctx.JSON(500, dto.Result{
 			Code:    -1,
 			Message: err.Error(),

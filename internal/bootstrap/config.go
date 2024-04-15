@@ -11,7 +11,7 @@ import (
 func InitializeConfig() *viper.Viper {
 
 	v := viper.New()
-	v.SetConfigFile("config.yaml")
+	v.SetConfigFile("../../../config.yaml")
 	v.SetConfigType("yaml")
 	if err := v.ReadInConfig(); err != nil {
 		panic(fmt.Errorf("read config failed: %s ", err))
